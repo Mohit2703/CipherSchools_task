@@ -3,6 +3,8 @@ import { validationResult } from "express-validator";
 import { User } from "../models/User.js";
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from "../config.js";
+import fs from 'fs';
+import path from "path";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -30,9 +32,18 @@ const register = async (req, res) => {
         }
         
         const hashPassword = bcrypt.hashSync(password, salt);
+        const buffer = fs.readFileSync('/media/mohit/New Volume/web development/CipherSchools_task/server/controllers/1946429.jpg');
+        const encode = buffer.toString('base64');
+
+        console.log(encode);
+
+        const photo = {
+            data: buffer,
+            contentType: 'image/jpg'
+        }
         
         const registerUser = await User.create({
-            email, password: hashPassword, firstName, lastName, phone
+            email, password: hashPassword, firstName, lastName, phone, photo
         })
         
         const userDetails = {id: registerUser.id};
@@ -186,4 +197,29 @@ const editDetails = async (req, res) => {
     }
 }
 
-export { register, login, changePassword, editDetails }
+const updateImage = async (req, res) => {
+    const { userId } = req;
+    const file = req.files;
+    console.log(file);
+    try {
+        const photo = {
+            data: file.data,
+            contentType: 'image/png'
+        }
+        
+        const imgUpdate = await User.findByIdAndUpdate(userId, photo);
+
+        console.log(imgUpdate);
+        
+        return res.status(200).json({
+            message: "SUCCESS"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+export { register, login, changePassword, editDetails, updateImage }

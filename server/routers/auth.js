@@ -1,4 +1,4 @@
-import { changePassword, editDetails, login, register } from '../controllers/auth.js';
+import { changePassword, editDetails, login, register, updateImage } from '../controllers/auth.js';
 
 import express from 'express';
 import { body } from 'express-validator';
@@ -21,5 +21,9 @@ router.put('/updatePassword', jwtVerify, body('newPassword').isLength({ min: 6 }
 router.put('/updateUser', jwtVerify, async(req, res) => {
     await editDetails(req, res);
 })
+
+router.put('/uploadImage', jwtVerify, async(req, res) => {
+    await updateImage(req, res);
+});
 
 export default router;

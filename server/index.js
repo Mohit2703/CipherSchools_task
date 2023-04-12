@@ -6,11 +6,13 @@ import { PORT } from './config.js';
 import { connectToMongo } from './db.js';
 
 import auth from './routers/auth.js';
+import fileUpload from 'express-fileupload';
 
 
 const app = express()
 
 app.use(express.json())
+app.use(fileUpload());
 app.use(cors({
   origin: '*'
 }))
