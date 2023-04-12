@@ -1,7 +1,8 @@
-import { login, register } from '../controllers/auth.js';
+import { changePassword, editDetails, login, register } from '../controllers/auth.js';
 
 import express from 'express';
 import { body } from 'express-validator';
+import { jwtVerify } from '../middleware.js';
 
 const router = express.Router();
 
@@ -11,6 +12,14 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
 
 router.post('/login', body('email').isEmail(), body('password').isLength({ min: 6 }), async(req, res) => {
     await login(req, res);
+})
+
+router.put('/updatePassword', jwtVerify, body('newPassword').isLength({ min: 6 }), async(req, res) => {
+    await changePassword(req, res);
+})
+
+router.put('/updateUser', jwtVerify, async(req, res) => {
+    await editDetails(req, res);
 })
 
 export default router;
