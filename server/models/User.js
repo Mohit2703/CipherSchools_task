@@ -1,4 +1,5 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema as _Schema } from "mongoose";
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
     "email": {
@@ -22,5 +23,13 @@ const UserSchema = new Schema({
         type: String,
         length: 10
     },
-    
+    "photo": {
+        data: Buffer,
+        contentType: String
+    }
+}, {
+    timestamps: true
 })
+
+const User = mongoose.model("User", UserSchema);
+export { User };

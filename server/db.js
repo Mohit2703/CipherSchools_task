@@ -1,8 +1,8 @@
-const { default: mongoose } = require("mongoose");
-const { MONGO_URI } = require("./config");
+import { mongoose } from "mongoose";
+import { MONGO_URI } from "./config.js";
 
 
-exports.connectToMongo = () => {
+const connectToMongo = () => {
     mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -14,3 +14,5 @@ exports.connectToMongo = () => {
       console.error("Failed to connect to MongoDB", err);
     });
 }
+
+export {connectToMongo};
