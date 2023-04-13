@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from "path";
 import { Prof } from "../models/ProfInfo.js";
 import { Social } from "../models/SocialMedia.js";
+import { Follow } from "../models/Follow.js";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -419,4 +420,83 @@ const fetchSocial = async (req, res) => {
     }
 }
 
-export { register, login, changePassword, editDetails, updateImage, fetchUserDetails, updateProf, fetchProf, editAbout, editSocial, fetchSocial };
+const fetchFollowers = async (req, res) => {
+    const { userId } = req;
+    
+    try {
+        const userPopular = await Follow.findOne({ userId });
+        
+        if (!userPopular) {
+            return res.status(200).json({
+                message: "SUCCESS",
+                data: {
+                    noFollower: 0,
+                    noFollowing: 0,
+                    follower: [],
+                    following: []
+                }
+            })
+        }
+        
+        return res.status(200).json({
+            message: "SUCCESS",
+            data: {
+                noFollower: userPopular.follower.length,
+                noFollowing: userPopular.following.length,
+                follower: userPopular.follower,
+                following: userPopular.following
+            }
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+const addFollower = async (req, res) => {
+    const { userId } = req;
+    const { id } = req.body;
+    console.log(id);
+    try {
+        const userPopular = await Follow.findOne({ userId: id });
+        const userFollow = await Follow.findOne({ userId });
+
+        if (!userPopular) {
+            const addUserFollow = await Follow.create({
+                userId,
+                following: [id]
+            })
+        } else {
+            const updateUserFollow = await Follow.findByIdAndUpdate(userPopular.id, {
+                following: userPopular.following.push({ id })
+            })
+        }
+
+        console.log("1");
+
+        if (!userFollow) {
+            const addUserFollowing = await Follow.create({
+                userId: id,
+                follower: [{ id: userId }]
+            })
+        } else {
+            const updateUserFollowing = await Follow.findByIdAndUpdate(userFollow.id, {
+                follower: userFollow.follower.push({ id: userId })
+            })
+        }
+
+        return res.status(200).json({
+            message: "SUCCESS"
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+export { register, login, changePassword, editDetails, updateImage, fetchUserDetails, updateProf, fetchProf, editAbout, editSocial, fetchSocial, fetchFollowers, addFollower };
