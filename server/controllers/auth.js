@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { jwtSecret } from "../config.js";
 import fs from 'fs';
 import path from "path";
+import { Prof } from "../models/ProfInfo.js";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -222,4 +223,89 @@ const updateImage = async (req, res) => {
     }
 }
 
-export { register, login, changePassword, editDetails, updateImage }
+const fetchUserDetails = async (req, res) => {
+    const { userId } = req;
+    
+    try {
+        const validationError = validationResult(req);
+        
+        if (!validationError.isEmpty()) {
+            return res.status(400).json({
+                message: "BAD REQUEST",
+                error: validationError.array()
+            })
+        }
+
+        const userDetails = await User.findById(userId);
+
+        return res.status(200).json({
+            message: "SUCCESS",
+            userDetail: {
+                email: userDetails.email,
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName,
+                profileImg: userDetails.photo,
+                phone: userDetails.phone
+            }
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+const updateProf = async (req, res) => {
+    const { userId } = req;
+    const { education, orgType } = req.body;
+    try {
+        const profUser = await Prof.findOne({ userId: userId });
+
+        if (!profUser) {
+            const insertProf = await Prof.create({
+                userId, education, orgType
+            })
+
+            return res.status(200).json({
+                message: "SUCCESS"
+            })
+        }
+        
+        const updateProf = await Prof.findByIdAndUpdate(profUser.id, {
+            education, orgType
+        })
+        
+        return res.status(200).json({
+            message: "SUCCESS"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+const fetchProf = async (req, res) => {
+    const { userId } = req;
+
+    try {
+        const profDetail = await Prof.findOne({ userId })
+
+        return res.status(200).json({
+            message: "SUCCESS",
+            profDetails: {
+                education: profDetail.education,
+                orgType: profDetail.orgType
+            }
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+export { register, login, changePassword, editDetails, updateImage, fetchUserDetails, updateProf, fetchProf };
