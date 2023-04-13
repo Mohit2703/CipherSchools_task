@@ -1,0 +1,76 @@
+.userBox {
+  height: 120px;
+  width: 100%;
+  display: flex;
+  background-color: #202b41;
+  background-image: url("../../assets/UserBackground.png");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: space-around;
+}
+
+.userback {
+    display: flex;
+    margin-left: 70px;
+    padding: 10px;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.userImg {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.imgUser {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  text-align: center;
+}
+
+.userDetails {
+  width: 100%;
+  height: 100%;
+  color: #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  font-size: 1em;
+  text-align: start;
+  margin: 0;
+  padding: 0;
+  margin-top: -20px;
+  margin-left: 30px;
+}
+
+.greeting {
+    font-weight: 300;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.userName {
+    margin: 0;
+    font-weight: 600;
+}
+
+.userEmail {
+    margin: 0;
+    font-weight: 300;
+}
+
+.rightUserDetail {
+    margin: 0 30px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.rightUserDetail span {
+    margin: 10px;
+}
