@@ -1,4 +1,4 @@
-import { changePassword, editDetails, fetchProf, fetchUserDetails, login, register, updateImage, updateProf } from '../controllers/auth.js';
+import { changePassword, editAbout, editDetails, editSocial, fetchProf, fetchSocial, fetchUserDetails, login, register, updateImage, updateProf } from '../controllers/auth.js';
 
 import express from 'express';
 import { body } from 'express-validator';
@@ -36,6 +36,18 @@ router.post('/updateProfessional', jwtVerify, async (req, res) => {
 
 router.get('/fetchProf', jwtVerify, async (req, res) => {
     await fetchProf(req, res);
+})
+
+router.post('/updateAbout', jwtVerify, async (req, res) => {
+    await editAbout(req, res);
+})
+
+router.post('/updateSocial', jwtVerify, async(req, res) => {
+    await editSocial(req, res);
+})
+
+router.get('/fetchSocial', jwtVerify, async (req, res) => {
+    await fetchSocial(req, res);
 })
 
 router.post('update')

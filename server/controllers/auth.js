@@ -6,6 +6,7 @@ import { jwtSecret } from "../config.js";
 import fs from 'fs';
 import path from "path";
 import { Prof } from "../models/ProfInfo.js";
+import { Social } from "../models/SocialMedia.js";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -308,4 +309,114 @@ const fetchProf = async (req, res) => {
     }
 }
 
-export { register, login, changePassword, editDetails, updateImage, fetchUserDetails, updateProf, fetchProf };
+const editAbout = async (req, res) => {
+    const { userId } = req;
+    const { about } = req.body;
+    
+    try {
+        const validationError = validationResult(req);
+        
+        if (!validationError.isEmpty()) {
+            return res.status(400).json({
+                message: "BAD REQUEST",
+                error: validationError.array()
+            })
+        }
+
+        const find = await Social.findOne({ userId });
+        
+        if (!find) {
+            const addEdit = await Social.create({
+                userId, About: about
+            })
+
+            return res.status(200).json({
+                message: "SUCCESS"
+            })
+        }
+        const aboutEdit = await Social.findByIdAndUpdate(find.id, {
+            About: about
+        })
+        
+        return res.status(200).json({
+            message: "SUCCESS"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+const editSocial = async (req, res) => {
+    const { userId } = req;
+    const { linkedin, github, instagram, facebook, website, twitter } = req.body;
+    
+    try {
+        const find = await Social.findOne({ userId });
+        const editData = {};
+        if (linkedin) {
+            editData.linkedin = linkedin;
+        }
+        if (github) {
+            editData.github = github;
+        }
+        if (instagram) {
+            editData.instagram = instagram;
+        }
+        if (facebook) {
+            editData.facebook = facebook;
+        }
+        if (website) {
+            editData.website = website;
+        }
+        if (twitter) {
+            editData.twitter = twitter;
+        }
+        
+        if (!find) {
+            editData.userId = userId;
+            
+            const addSocial = await Social.create(editData);
+            return res.status(200).json({
+                message: "SUCCESS"
+            })
+        }
+        
+        const editSocial = await Social.findByIdAndUpdate(find.id, editData);
+        
+        
+        return res.status(200).json({
+            message: "SUCCESS"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+const fetchSocial = async (req, res) => {
+    const { userId } = req;
+    
+    try {
+        const findSocial = await Social.findOne({ userId });
+
+        return res.status(200).json({
+            message: "SUCCESS",
+            socialData: {
+                about: findSocial.About,
+                linkedin: findSocial.linkedin
+            }
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+}
+
+export { register, login, changePassword, editDetails, updateImage, fetchUserDetails, updateProf, fetchProf, editAbout, editSocial, fetchSocial };

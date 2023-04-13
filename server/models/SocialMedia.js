@@ -6,6 +6,9 @@ const socialSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
+    About: {
+        type: String
+    },
     linkedin: {
         type: String
     },
