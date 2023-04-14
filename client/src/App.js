@@ -9,8 +9,8 @@ function App() {
       <div className="topNavbar">
         <Navbar/>
         <div className="main">
-          {/* <Main/> */}
-          <Login />
+          <Main/>
+          {/* <Login /> */}
         </div>
       </div>
     </div>

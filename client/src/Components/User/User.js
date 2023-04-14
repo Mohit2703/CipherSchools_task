@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './User.css'
 import userLogo from '../../assets/userLogo.webp';
-import { localhost } from "../../config";
+import { jwtToken, localhost } from "../../config";
 import { BsFillPencilFill } from "react-icons/bs";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ const User = () => {
     useEffect(() => {
         setLoad(true);
         const link = localhost + `auth/userDetails`;
-        axios.get(link, { headers: { 'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzcwYzExYmU0ODJmYzQ5NWY1MGJmYSIsImlhdCI6MTY4MTMyOTE4NX0.GYt0C8s7UlmKlZh6Vwscu3dovoaTj4Rn9KRHwgHA5W4' } }).then((response) => {
+        axios.get(link, { headers: { 'authorization': jwtToken } }).then((response) => {
             const base64 = response.data.userDetail.profileImg.data.data.toString('base64');
             let image = `data:` + response.data.userDetail.profileImg.contentType + `;base64,$(` + base64 + `)`;
             setFirstName(response.data.userDetail.firstName);

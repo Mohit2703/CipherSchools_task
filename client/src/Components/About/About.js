@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './About.css';
 import { BsFacebook, BsGithub, BsGlobe2, BsInstagram, BsKeyFill, BsLinkedin, BsTwitter } from 'react-icons/bs';
 import CipherMap from '../CipherMap/CipherMap';
-import { localhost } from '../../config';
+import { jwtToken, localhost } from '../../config';
 import axios from 'axios';
 import { MdSchool, MdWork } from 'react-icons/md';
 
@@ -22,7 +22,7 @@ const About = () => {
     useEffect(() => {
         setPageLoad(true);
         const getSocialLink = localhost + `auth/fetchSocial`;
-        axios.get(getSocialLink, { headers: { 'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzcwYzExYmU0ODJmYzQ5NWY1MGJmYSIsImlhdCI6MTY4MTMyOTE4NX0.GYt0C8s7UlmKlZh6Vwscu3dovoaTj4Rn9KRHwgHA5W4' } }).then((response) => {
+        axios.get(getSocialLink, { headers: { 'authorization': jwtToken } }).then((response) => {
             setAbout(response.data.socialData.About)
             setInsta(response.data.socialData.instagram)
             setLinkedin(response.data.socialData.linkedin)
@@ -40,7 +40,7 @@ const About = () => {
         } else {
             let link = localhost + `auth/updateAbout`;
             var data = {'about': about}
-            axios.post(link, data, {headers: {'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzcwYzExYmU0ODJmYzQ5NWY1MGJmYSIsImlhdCI6MTY4MTMyOTE4NX0.GYt0C8s7UlmKlZh6Vwscu3dovoaTj4Rn9KRHwgHA5W4'}}).then((response) => {
+            axios.post(link, data, {headers: {'authorization': jwtToken}}).then((response) => {
                 console.log(response);
             })
             setEditAbout(false);
@@ -52,7 +52,7 @@ const About = () => {
         } else {
             let link = localhost + `auth/updateSocial`;
             var data = {'linkedin': Linkedin, 'github': Github, 'instagram': Insta, 'website': Web, 'twitter': Twitter, 'facebook': Face}
-            axios.post(link, data, {headers: {'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzcwYzExYmU0ODJmYzQ5NWY1MGJmYSIsImlhdCI6MTY4MTMyOTE4NX0.GYt0C8s7UlmKlZh6Vwscu3dovoaTj4Rn9KRHwgHA5W4'}}).then((response) => {
+            axios.post(link, data, {headers: {'authorization': jwtToken}}).then((response) => {
                 console.log(response);
             })
             setEditWeb(false);
