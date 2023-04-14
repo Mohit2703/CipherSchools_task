@@ -96,3 +96,7 @@
 .registerBottom span {
     cursor: pointer;
 }
+
+.clickInput {
+    cursor: pointer;
+}

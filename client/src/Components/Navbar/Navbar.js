@@ -48,9 +48,6 @@ const Navbar = () => {
                 <div className="notify rightComp">
                     <BsBell />
                 </div>
-                <div className="profile rightComp">
-                    <img src={logo} alt="" className="profile-mid" />
-                </div>
                 <div className="coins rightComp">
                     <div className="profile">
                         <img src={logo} alt="" className="profile-sm" />
@@ -59,12 +56,12 @@ const Navbar = () => {
                         0
                     </div>
                 </div>
-                <div className="changeTheme rightComp">
+                {/* <div className="changeTheme rightComp">
                     <label className="switch">
                         <input type="checkbox" />
                         <span className="slider round"></span>
                     </label>
-                </div>
+                </div> */}
             </div>
         </div>
     )

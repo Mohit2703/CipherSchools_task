@@ -239,6 +239,12 @@ const fetchUserDetails = async (req, res) => {
         }
 
         const userDetails = await User.findById(userId);
+        const userPopular = await Follow.findOne({ userId });
+        let followers = 0;
+
+        if (userPopular) {
+            followers = userPopular.follower.length
+        }
 
         return res.status(200).json({
             message: "SUCCESS",
@@ -247,7 +253,8 @@ const fetchUserDetails = async (req, res) => {
                 firstName: userDetails.firstName,
                 lastName: userDetails.lastName,
                 profileImg: userDetails.photo,
-                phone: userDetails.phone
+                phone: userDetails.phone,
+                followers
             }
         })
     } catch (err) {
@@ -405,12 +412,19 @@ const fetchSocial = async (req, res) => {
     try {
         const findSocial = await Social.findOne({ userId });
 
+        const resp = {};
+
+        resp.About = findSocial.About ? findSocial.About : '';
+        resp.instagram = findSocial.instagram ? findSocial.instagram : '';
+        resp.facebook = findSocial.facebook ? findSocial.facebook : '';
+        resp.linkedin = findSocial.linkedin ? findSocial.linkedin : '';
+        resp.website = findSocial.website ? findSocial.website : '';
+        resp.github = findSocial.github ? findSocial.github : '';
+        resp.twitter = findSocial.twitter ? findSocial.twitter : '';
+
         return res.status(200).json({
             message: "SUCCESS",
-            socialData: {
-                about: findSocial.About,
-                linkedin: findSocial.linkedin
-            }
+            socialData: resp
         })
     } catch (err) {
         return res.status(500).json({
