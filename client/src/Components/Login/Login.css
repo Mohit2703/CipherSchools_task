@@ -1,0 +1,98 @@
+.registerPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registerModel {
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 40vw;
+    border-radius: 25px;
+}
+
+.registerTop {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    color: #eee;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+}
+
+.companyLogo {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+    color: #eee;
+}
+
+.companyLogo h4 {
+    margin: 0;
+    line-height: 40px;
+    padding: 0;
+}
+
+.logoComp {
+    margin: 0 15px;
+    height: 40px;
+}
+
+.greeting {
+    color: #eee;
+    font-size: medium;
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+.registerGreet {
+    margin: 20px 0;
+}
+
+.rowInput {
+    width: 60%;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid #696868;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.inputRow {
+    margin: 30px 0;
+}
+
+.inputClick {
+    display: flex;
+    justify-content: center;
+}
+
+.clickInput {
+    background-color: #f3912e;
+    color: #eee;
+    width: 60%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.2em;
+    border-radius: 10px;
+}
+
+.loginChange span {
+    color: #f3912e;
+}
+
+.registerBottom {
+    margin: 10px 0;
+    color: #eee;
+}
+
+.registerBottom span {
+    cursor: pointer;
+}
