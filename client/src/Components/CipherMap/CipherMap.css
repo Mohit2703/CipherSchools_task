@@ -1,0 +1,68 @@
+.CipherMap {
+    display: flex;
+    justify-content: center;
+}
+
+.day {
+    width: 12.5px;
+    height: 12.5px;
+    margin: 1.5px;
+    border-radius: 2.5px;
+}
+
+.day0 {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.day1 {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.day2 {
+    background-color: #fce4cb;
+}
+
+.day3 {
+    background-color: #f6ad62;
+}
+
+.year {
+    display: flex;
+    width: fit-content;
+}
+
+.month {
+    display: flex;
+    margin: 0 2px;
+}
+
+.weeks {
+    margin: 0 5px;
+}
+
+.weeks .w {
+    height: 15px;
+    line-height: 15px;
+    margin: 1.5px;
+    color: #c0bfbf;
+}
+
+.cipherMon {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 2px 0 ;
+    margin-left: 25px;
+    color: #c0bfbf;
+}
+
+.thonm {
+    margin: 0 10px;
+    width: 62.5px;
+}
+
+.mapCipher {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

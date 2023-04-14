@@ -1,0 +1,82 @@
+.UserInfo {
+    display: flex;
+    flex-direction: column;
+    color: #eeeeee;
+    background-color: #15181e;
+    justify-content: center;
+    margin: 0 70px;
+}
+
+.informations {
+    /* width: 80%; */
+    border-bottom: 1px solid #3c424b;
+    padding: 20px;
+}
+
+.topHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topHead a {
+    background-color: #f3912e;
+    text-align: center;
+    justify-content: center;
+    color: #eee;
+    height: 40px;
+    width: 80px;
+    line-height: 40px;
+    text-decoration: none;
+    border-radius: 50px;
+}
+
+.aboutText {
+    border: none;
+    width: 90%;
+    height: 100px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #eee;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.webLinks {
+    display: flex;
+    justify-content: center;
+}
+
+.webCol {
+    width: 100%;
+    margin: 0 20px;
+}
+
+.linkWeb {
+    width: 100%;
+    text-align: start;
+    margin: 10px 0;
+}
+
+.webInputLink {
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 15px;
+    padding: 0 20px;
+    /* padding-left: 10px; */
+    font-size: 20px;
+    background-color: #3c424b;
+}
+
+.linkIcon {
+    font-size: 20px;
+}
+
+.mp-link-text {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: #eee;
+    font-size: 20px;
+    width: 80%;
+    margin: 0 1em;
+}
